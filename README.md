@@ -1,5 +1,6 @@
 # Java tryouts and experiments 
 
+[![Maven build](https://github.com/pgaertig/jtry/actions/workflows/maven.yml/badge.svg)](https://github.com/pgaertig/jtry/actions/workflows/maven.yml)
 This is my personal playground to learn old and new things with Java
 
 Please look into subprojects for more details.
