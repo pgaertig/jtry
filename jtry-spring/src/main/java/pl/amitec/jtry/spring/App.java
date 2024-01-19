@@ -1,4 +1,4 @@
-package pl.amitec.jtry;
+package pl.amitec.jtry.spring;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

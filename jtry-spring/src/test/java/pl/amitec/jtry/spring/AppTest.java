@@ -1,4 +1,4 @@
-package pl.amitec;
+package pl.amitec.jtry.spring;
 
 
 import org.junit.jupiter.api.Test;
