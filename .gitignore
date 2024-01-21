@@ -10,3 +10,4 @@ tmp/
 *.hprof
 data/*
 **/target/
+.env

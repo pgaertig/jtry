@@ -1,38 +1,35 @@
 package pl.amitec.jtry.concurrency;
 
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.stream.Stream;
 
+/**
+ * Completable future implementation.
+ */
 public class FileSumProduct {
-    public static class SumFile implements Callable<Long> {
-        private Path filePath;
 
-        public SumFile(Path filePath) {
-            this.filePath = filePath;
-        }
-
-        @Override
-        public Long call() throws Exception {
-            return Files.lines(filePath)
-                    .map(Long::parseLong)
-                    .reduce(0L, Long::sum);
-        }
-    }
-
+    /**
+     * Returns product of sum of numbers from files.
+     * In case of any exception results in CompletionException.
+     * @param filePaths
+     * @return long value
+     */
     public Long getResult(String... filePaths) {
         List<CompletableFuture<Long>> futures = Arrays.stream(filePaths)
                 .map(Paths::get)
                 .map(path -> CompletableFuture.supplyAsync(() -> {
-                    try {
-                        return new SumFile(path).call();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                    try(var lines = Files.lines(path)) {
+                        return lines.map(Long::parseLong).reduce(0L, Long::sum);
+                    } catch (IOException e) {
+                        // this will be wrapped in CompletionException anyway
+                        throw new FileSumException(e.getMessage(), e);
                     }
                 }))
                 .toList();

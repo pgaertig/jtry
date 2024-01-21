@@ -2,17 +2,16 @@ package pl.amitec.jtry.concurrency;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.CoreMatchers.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FileSumProductTest {
-
+public class FileSumProductTestStructuredConcurrencyTest {
     @Test
-    public void getResult() {
-        FileSumProduct fileSumProduct = new FileSumProduct();
+    public void getResult() throws InterruptedException, ExecutionException {
+        FileSumProductStructuredConcurrency fileSumProduct = new FileSumProductStructuredConcurrency();
         var result = fileSumProduct.getResult(
                 "src/test/resources/numbers1.txt",
                 "src/test/resources/numbers2.txt");
@@ -22,13 +21,12 @@ public class FileSumProductTest {
 
     @Test
     public void getFailed() {
-        FileSumProduct fileSumProduct = new FileSumProduct();
-        assertThrows(CompletionException.class, () -> {
+        FileSumProductStructuredConcurrency fileSumProduct = new FileSumProductStructuredConcurrency();
+        assertThrows(FileSumException.class, () -> {
             fileSumProduct.getResult(
                     "src/test/resources/numbers1.txt",
                     "src/test/resources/numbers2.txt",
                     "src/test/resources/numbers-non-existent.txt");
         });
     }
-
 }
