@@ -35,6 +35,8 @@ public class SimpleChatCompletion {
 
         //service.createChatCompletion(chatCompletionRequest).getChoices().forEach(System.out::println);
         ChatMessage responseMessage = service.createChatCompletion(chatCompletionRequest).getChoices().get(0).getMessage();
+
+        // Expected output: "Bonjour, comment ça va?"
         System.out.println(responseMessage.getContent());
 
     }
