@@ -36,9 +36,8 @@ public class FileSumProductStructuredConcurrency {
                         }))
                     .toList();
 
-            //scope.join();
+            //example of timeout
             scope.joinUntil(Instant.now().plusSeconds(5));
-
             scope.throwIfFailed(e -> {
                 throw new FileSumException(e.getMessage(), e);
             });

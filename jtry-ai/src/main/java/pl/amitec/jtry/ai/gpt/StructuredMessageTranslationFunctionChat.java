@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.function.Function;
 
 /**
- * This example shows how to use GPT-3 to translate and structure messages.
+ * This example shows how to use GPT-3 to translate and structure messages using functions.
  * The messages are translated to English and then could be saved to database.
  */
 public class StructuredMessageTranslationFunctionChat {
